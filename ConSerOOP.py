@@ -18,3 +18,16 @@ if __name__ == '__main__':
     while True:
         try:
             rn = con.read_data()
+            if rn:
+                print("Numero aleatorio generado: ", rn)
+                time.sleep(2) # Tiempo entre muestra y muestra
+                num = float(rn)
+                mtx.append(num)
+                if len(mtx) == 10:
+                        prom = sum(mtx)/len(mtx)
+                        print("El promedio es: ", prom)
+                        mtx.clear()
+        except KeyboardInterrupt:
+            break
+
+
