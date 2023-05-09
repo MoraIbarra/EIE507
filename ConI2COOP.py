@@ -1,5 +1,6 @@
 import smbus
 import time
+import datetime
 
 class Med:
     def __init__(self, address):
@@ -29,11 +30,15 @@ if __name__ == "__main__":
     while True:
         temp = TERM.read_temp()
         print("La temperatura es: {:.2f} °C".format(temp))
-        time.sleep(1)
+        time.sleep(30) #Al cambiar este numero se cambia el tiempo de muestreo en segundos
         Ntem = float(temp)
         mtx.append(Ntem)
-        if len(mtx) == 10
-          prom = sum(mtx)/len(mtx)
-          prom = round(prom, 4)
-          print("El promedio es: ", prom, "°C")
-          mtx.clear()          
+        if len(mtx) == 10:
+            prom = sum(mtx)/len(mtx)
+            prom = round(prom, 4)
+            print("El promedio es: ", prom, "°C")
+            mtx.clear()
+            fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            nombre_archivo = f"promedios_temperatura_{fecha_actual}.txt"
+            with open(nombre_archivo, "w") as archivo:
+                archivo.write(f"Promedio: {prom} °C\n")
