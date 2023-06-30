@@ -38,7 +38,7 @@ void setup() {
   radio.begin();
   radio.setPALevel(RF24_PA_HIGH);
 
-  radio.openReadingPipe(0xF0F0F0F0C3LL);
+  radio.openReadingPipe(1, 0xF0F0F0F0C3LL);
 
   radio.setDataRate(RF24_250KBPS);
 
@@ -51,10 +51,14 @@ void loop() {
   if (radio.available()) {
     SensorData data;
     radio.read(&data, sizeof(data));
-    Serial.print("Sensor ");
-    Serial.print(data.sensorNumber);
-    Serial.print(" - Temperature: ");
-    Serial.print(data.temperature);
-    Serial.println(" °C");
+    
+    if (data.sensorNumber >= 4 && data.sensorNumber <= 6) {
+      Serial.print("Sensor ");
+      Serial.print(data.sensorNumber);
+      Serial.print(" - Temperature: ");
+      Serial.print(data.temperature);
+      Serial.println(" °C");
+    }
   }
 }
+
