@@ -58,7 +58,7 @@ while True:
 
     time.sleep(1)
     time_actual = time.time()
-    if time_actual - time_anterior >= 30:
+    if time_actual - time_anterior >= 1200: # Tiempo
         con = 1
         i = 0
         while i < 9:
