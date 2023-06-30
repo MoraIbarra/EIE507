@@ -12,7 +12,7 @@
 OneWire oneWire[NUM_SENSORS];
 DallasTemperature sensors[NUM_SENSORS];
 
-RF24 radio(8, 10); 
+RF24 radio(8, 10);
 
 struct SensorData {
   int sensorNumber;
@@ -38,8 +38,8 @@ void setup() {
   radio.begin();
   radio.setPALevel(RF24_PA_HIGH);
 
-  radio.openReadingPipe(0xF0F0F0F0D2LL); 
- 
+  radio.openReadingPipe(0xF0F0F0F0D2LL);
+
   radio.setDataRate(RF24_250KBPS);
 
   radio.setPALevel(RF24_PA_HIGH);
@@ -48,14 +48,16 @@ void setup() {
 }
 
 void loop() {
-
   if (radio.available()) {
     SensorData data;
     radio.read(&data, sizeof(data));
-    Serial.print("Sensor ");
-    Serial.print(data.sensorNumber);
-    Serial.print(" - Temperature: ");
-    Serial.print(data.temperature);
-    Serial.println(" °C");
+    
+    if (data.sensorNumber >= 1 && data.sensorNumber <= 3) {
+      Serial.print("Sensor ");
+      Serial.print(data.sensorNumber);
+      Serial.print(" - Temperature: ");
+      Serial.print(data.temperature);
+      Serial.println(" °C");
+    }
   }
 }
