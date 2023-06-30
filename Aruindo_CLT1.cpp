@@ -38,26 +38,20 @@ void setup() {
   radio.begin();
   radio.setPALevel(RF24_PA_HIGH);
 
-  // Configure the reading pipe for channel 1
-  radio.openReadingPipe(0xF0F0F0F0E1LL);  // Receiver address (Arduino receiver)
+  radio.openReadingPipe(0xF0F0F0F0D2LL); 
  
   radio.setDataRate(RF24_250KBPS);
 
-  // Set the transmission power to a high level
   radio.setPALevel(RF24_PA_HIGH);
 
-  // Start listening on channel 1
   radio.startListening();
 }
 
 void loop() {
-  // Check if there is data available to receive on channel 1
+
   if (radio.available()) {
-    // Read the sensor information
     SensorData data;
     radio.read(&data, sizeof(data));
-
-    // Print the received information from channel 1
     Serial.print("Sensor ");
     Serial.print(data.sensorNumber);
     Serial.print(" - Temperature: ");
